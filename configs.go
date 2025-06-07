@@ -557,6 +557,8 @@ type VideoConfig struct {
 	BaseFile
 	Thumb             RequestFileData
 	Duration          int
+	Width             int
+	Height            int
 	Caption           string
 	ParseMode         string
 	CaptionEntities   []MessageEntity
@@ -569,6 +571,8 @@ func (config VideoConfig) params() (Params, error) {
 		return params, err
 	}
 
+	params.AddNonZero("width", config.Width)
+	params.AddNonZero("height", config.Height)
 	params.AddNonZero("duration", config.Duration)
 	params.AddNonEmpty("caption", config.Caption)
 	params.AddNonEmpty("parse_mode", config.ParseMode)
